@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
+import useInput from '../CustomHooks/useInput'
 
 function UserForm(){
-    const [firstName, setFirstName] = useState('')
-    const [lastName, setLastName] = useState('')
+
+    const [firstName, bindFirstName, resetFirstName] = useInput('')
+    const [lastName, bindLastName, resetLastName] = useInput('')
 
     const submitHandler = (e) => {
         e.preventDefault();
         alert(`Hello ${firstName} ${lastName}`)
+        resetFirstName()
+        resetLastName()
     }
 
     return (
@@ -14,11 +18,11 @@ function UserForm(){
             <form onSubmit={submitHandler}>
                 <div>
                     <label>First Name :</label>
-                    <input type="text" value={firstName} onChange={e => setFirstName(e.target.value)}/>
+                    <input type="text" {...bindFirstName}/>
                 </div>
                 <div>
                     <label>Last Name :</label>
-                    <input type="text" value={lastName} onChange={e => setLastName(e.target.value)}/>
+                    <input type="text" {...bindLastName}/>
                 </div>
                 <button>Submit</button>
             </form>
